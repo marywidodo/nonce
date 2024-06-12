@@ -1,0 +1,166 @@
+<html>
+	<h2>Registration</h2>
+	<!--BEGIN Antics DMS List of generated questions -->
+<form name="questionform" action="" method="post" enctype="multipart/form-data" class="form-horizontal" OnSubmit="return validateQuestions(this);">
+  <input type="hidden" name="form_action" value="register" />
+  <input type="hidden" name="question_list" value="1000003716074,1000003716066" />
+<input type="hidden" name="CSRF_NONCE_PARAM" value="null" />
+<!-- BEGIN markup for open-ended text field question -->
+<div class="form-group">
+
+	<label for="1000003716066" id="dis1000003716066">Email address:<span class="required" id="req1000003716066" style="display:none;">*</span></label>
+
+	<input type="text" class="form-control" id="1000003716066" name="question1000003716066" placeholder="Email address:" required value="" />
+
+
+
+<div class="form-additional">
+	
+</div>
+
+</div>
+<!-- END markup for open-ended text field question -->
+
+
+<!-- BEGIN markup for password question -->
+<div class="form-group">
+
+	<label for="1000003716074" id="dis1000003716074">Create a password:<span class="required" id="req1000003716074" style="display:none;">*</span></label> 
+
+	<input type="password" class="form-control" id="1000003716074" name="question1000003716074" placeholder="Create a password:" required value="" autocomplete="off" />
+
+	<!-- BEGIN markup for verification: Ask the user to re-enter the answer and ensure they match -->
+<div class="form-verification">
+
+	<label for="confirm1000003716074" id="disconfirm1000003716074">Confirm password:<span class="required" style="display:none;">*</span></label> 
+
+	<input type="password" class="form-control" id="confirm1000003716074" name="question1000003716074" placeholder="Confirm password:" required value="" autocomplete="off" />		
+
+</div>
+<!-- END markup for verification -->
+
+
+
+	<div class="form-additional form-text text-muted">
+		
+	</div>
+</div>
+<!-- END markup for password question -->
+
+<!-- BEGIN question validation JS -->
+<script language="javascript">
+
+// Validation header
+function skipToEnd(form) {
+    document.questionform.skiptoend.value = '1';
+    document.questionform.submit();
+}
+
+// Add a popover tootlip to explain any errors
+function addPopover(id, msg){	
+	$("#" + id).popover({ content: msg, placement: "bottom"});
+	$("#" + id).popover('enable');
+	$("#" + id).popover('show');
+	$("#" + id).data('haspopover', true);
+}
+
+var bCancel = false;
+
+/* =================================================================
+	This function will be called when the user submits the form,
+	and AFTER the native HTML5 validation has already completed.
+================================================================= */
+function validateQuestions(form) {
+    var focusField = null;
+    var i = 0;
+    var f = null;
+    var msg = " ";
+    var fields = new Array();
+    var bValid = true;
+    var txt = "";
+
+    if (bCancel) { 
+        document.questionform.doner.value = 'cancel';
+        return true;
+    }
+
+    // First, clear any previous errors
+    $("input").removeClass("dms_invalid");
+    $("textarea").removeClass("dms_invalid");
+    $("select").removeClass("dms_invalid");
+
+    // END of the validation header
+// Comment out here, but make sure scripts start with a comment, too
+//// BEGIN text field validation
+var qID = "1000003716066", 
+valFunc = "Email",
+txt = $("#1000003716066").val();
+
+if( valFunc == "Email" ){
+	txt = txt.toLowerCase();	
+	$("#1000003716066").val(txt);
+}
+if( txt.length && valFunc.length ){
+	// Call the validation function in validate.js (if one was selected) 
+	if( !checkEmail(txt,qID) ){
+		bValid = false;
+		$("#" + qID).addClass("dms_invalid");	
+		addPopover(qID, "Please provide a valid answer");
+	}
+}
+
+// END text field validation
+
+// Comment out here, but make sure scripts start with a comment, too
+//// BEGIN password validation
+var qID = "1000003716074", 
+valFunc = "",
+txt = $("#1000003716074").val();
+
+if( txt.length && valFunc.length ){
+	// Call the validation function in validate.js (if one was selected) 
+	if( !check(txt,qID) ){
+		bValid = false;
+		$("#" + qID).addClass("dms_invalid");	
+		addPopover(qID, "Your password isn't a valid format");
+	}
+}
+// Next, confirm that the two passwords match
+var confirmID = "confirm1000003716074";
+var confirmtxt = $("#" + confirmID).val();
+if( confirmtxt != txt ){
+	bValid = false;
+	$("#" + qID).addClass("dms_invalid");
+	$("#" + confirmID).addClass("dms_invalid");
+	$("#" + confirmID).data('haserror', qID);
+	addPopover(confirmID, "Your passwords must match");
+}
+
+
+// END password validation
+
+ 
+   // BEGIN validation footer
+   if (!bValid) {
+      // Scroll to the first error
+      $('html, body').animate({scrollTop: $(".dms_invalid").first().offset().top - 200}, 200);	   
+    }
+    return bValid;
+}
+</script>
+<!-- END question validation JS -->
+
+
+<!-- BEGIN markup for submit button -->
+<div class="row">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-8">
+		<input type="submit" name="register" class="dmsbuttonsubmit" value="Submit">
+	</div>
+</div>
+<!-- END markup for submit button -->
+
+</form>
+<!-- END Antics DMS List of generated questions -->
+
+</html>
